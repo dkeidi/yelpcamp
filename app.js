@@ -17,18 +17,19 @@ var commentRoutes 	 = require("./routes/comments"),
 	indexRoutes 	 = require("./routes/index");
 
 // mongoose.connect("mongodb://localhost/yelp_camp_v12", 
-// 	{
-// 		useNewUrlParser: true, 
-// 	 	useUnifiedTopology: true,
-// 		useFindAndModify: false
-// 	});
-
-mongoose.connect("mongodb+srv://keidi:tay88888888@cluster0-w1eab.mongodb.net/test?retryWrites=true&w=majority", 
+mongoose.connect(process.env.DATABASEURL, 
 	{
 		useNewUrlParser: true, 
 	 	useUnifiedTopology: true,
 		useFindAndModify: false
 	});
+
+// mongoose.connect("mongodb+srv://keidi:tay88888888@cluster0-w1eab.mongodb.net/test?retryWrites=true&w=majority", 
+// 	{
+// 		useNewUrlParser: true, 
+// 	 	useUnifiedTopology: true,
+// 		useFindAndModify: false
+// 	});
 
 
 
