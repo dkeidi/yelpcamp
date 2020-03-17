@@ -22,7 +22,8 @@ mongoose.connect(url,
 	{
 		useNewUrlParser: true, 
 	 	useUnifiedTopology: true,
-		useFindAndModify: false
+		useFindAndModify: false,
+		useCreateIndex: true
 	});
 
 // mongoose.connect("mongodb+srv://keidi:tay88888888@cluster0-w1eab.mongodb.net/test?retryWrites=true&w=majority", 
