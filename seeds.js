@@ -32,48 +32,35 @@ var data = [
     }
 ]
  
-function seedDB(){
-   //Remove all campgrounds
-   Campground.deleteMany({}, function(err){
-        if (err){
-            console.log(err);
-        }
+async function seedDB(){
+   try{
+        //Remove all campgrounds
+        await Campground.deleteMany({});
         console.log("removed campgrounds!");
-        Comment.deleteMany({}, function(err) {
-            if (err){
-                console.log(err);
-            }
-            console.log("removed comments!");
-            //add a few campgrounds
-            data.forEach(function(seed){
-                Campground.create(seed, function(err, campground){
-                    if(err){
-                        console.log(err)
-                    } else {
-                        console.log("added a campground");
-                        //create a comment
-                        Comment.create(
-                            {
-                                text: "This place is great, but I wish there was internet",
-                                author:{
-                                    id : "588c2e092403d111454fff76",
-                                    username: "Jack"
-                                }
-                            }, function(err, comment){
-                                if(err){
-                                    console.log(err);
-                                } else {
-                                    campground.comments.push(comment);
-                                    campground.save();
-                                    console.log("Created new comment");
-                                }
-                            });
+        await Comment.deleteMany({});
+        console.log("removed comments!");
+
+        //add a few campgrounds
+        for(const seed of data){
+            let campground = await Campground.create(seed);
+            console.log("Campground pitched");
+            let comment = await Comment.create(
+                {
+                    text: "This place is great, but I wish there was internet",
+                    author:{
+                    id : "588c2e092403d111454fff76",
+                    username: "Jack"
                     }
+            
                 });
-            });
-        });
-    }); 
-    //add a few comments
+            console.log("Created new comment");
+            campground.comments.push(comment);
+            campground.save();
+            console.log("Created new comment");
+        }
+   } catch(err){
+        console.log(err);
+   }
 }
 
 module.exports = seedDB;
