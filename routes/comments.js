@@ -48,8 +48,14 @@ router.post("/", middleware.isLoggedIn, function(req, res){
 });
 
 //EDIT comment
-router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req, res){		
-	res.render("comments/edit", {campground_id: req.params.id, comment: req.comment});	
+router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req, res){
+	Campground.findById(req.params.id, function(err, campground){
+	if(err){
+		console.log(err);
+	} else {
+		res.render("comments/edit", {campground_id: req.params.id, campgroundName: campground.name, comment: req.comment});	
+	}
+	});		
 });
 
 //UPDATE comment
